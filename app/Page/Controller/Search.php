@@ -1,8 +1,12 @@
 <?php
 namespace Webaholicson\Minimvc\Page\Controller;
 
-class Search extends \Webaholicson\Minimvc\Core\Controller
+class Search extends \Webaholicson\Minimvc\Core\Controller\Index
 {
+    /**
+     * @inheritdoc
+     * @throws Exception
+     */
     public function execute()
     {
         $result = array(

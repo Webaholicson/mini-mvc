@@ -33,11 +33,6 @@ abstract class Context implements \Webaholicson\Minimvc\Core\Context\ContextInte
      */
     protected $_config;
     
-    /**
-     *  @var \Webaholicson\Minimvc\Core\Router Main router object
-     */
-    protected $_router;
-    
     public function __construct(
         \Webaholicson\Minimvc\Core\Services $services,
         \Webaholicson\Minimvc\Core\Request $request,

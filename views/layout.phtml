@@ -1,70 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="bookSearchApp">
-  <head>
-    <title>Book Search</title>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="<?php echo $home_url ?>public/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="<?php echo $home_url ?>public/css/bootstrap-theme.min.css" />
-    <link rel="stylesheet" href="<?php echo $home_url ?>public/css/styles.css" />
-  </head>
-  <body>
-    <div id="wrapper" ng-controller="BookSearchCtrl">
-      <header class="page-header">
-        <h1>Search for some books here.</h1>
-      </header>
-      <section id="content">
-        <div class="container-fluid">
-          <form ng-repeat="book in books" class="form-inline">
-            <div  class="form-group">
-              <div class="input-group">
-                <label for="{{ book.id }}" class="input-group-addon"
-                  id="{{ book.describedBy }}">ISBN</label>
-                <input ng-model="book.value" value="{{ book.value }}"
-                  type="text" id="{{ book.id }}" class="form-control"
-                  placeholder="Enter ISBN"
-                  aria-describedby="{{ book.describedBy }}">
-              </div>
-            </div>
-            <button ng-show="book.canDelete" ng-disabled="!book.canDelete"
-              ng-click="removeBook(book.index)"
-              class="btn btn-danger delete">Delete</button>
-          </form>
-          <a ng-click="addBook()" id="add-more" class="btn btn-success">Add More</a>
-          <a ng-click="getResults()" id="submit" class="btn btn-primary">Search</a>
+<html lang="en">
+    <?php echo $this->getPartial('head') ?>
+    <body>
+        <header>
+            <?php echo $this->getPartial('header') ?>
+        </header>
+        <div id="wrapper">
+            <?php echo $this->getPartial('body') ?>
         </div>
-      </section>
-      <section id="results" ng-show="showResults">
-        <h3 class="page-header text-center">Results</h3>
-        <p class="text-center">{{ resultMsg }}</p>
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>ISBN-13</th>
-                <th>Price</th>
-                <th>Shipping Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="item in results">
-                <td>{{ item.isbn13 }}</td>
-                <td>${{ item.price }}</td>
-                <td>${{ item.shipping_price }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-      <footer class="text-center">
-        <div>
-          <h5>Thanks for reading books.</h5>
-        </div>
-      </footer>
-    </div>
-    <script type="text/javascript" src="<?php echo $home_url ?>public/js/jquery-1.12.2.min.js"></script>
-    <script type="text/javascript" src="<?php echo $home_url ?>public/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<?php echo $home_url ?>public/js/angular.min.js"></script>
-    <script type="text/javascript" src="<?php echo $home_url ?>public/js/app.js"></script>
-    <script type="text/javascript" src="<?php echo $home_url ?>public/js/controllers.js"></script>
-  </body>
+        <footer>
+            <?php echo $this->getPartial('footer') ?>
+        </footer>
+    </body>
 </html>

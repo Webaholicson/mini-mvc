@@ -16,9 +16,6 @@ $paths[] = BP.DS.'app';
 
 $appPath = implode(PS, $paths);
 set_include_path($appPath . PS . get_include_path());
-// Include config, routes, and services
-include 'config/config.php';
-include 'config/routes.php';
 
 // Initialize and run the app
 include 'Core/Bootstrap.php';

@@ -28,6 +28,11 @@ abstract class AbstractController implements \Webaholicson\Minimvc\Core\Controll
      */
     protected $_response;
 
+    /**
+     * @var string Layout file to use for this controller
+     */
+    protected $_layout = 'layout';
+    
     public function __construct(
         \Webaholicson\Minimvc\Core\Context\ContextInterface $context,
         \Webaholicson\Minimvc\Core\View\ViewInterface $view
@@ -38,6 +43,8 @@ abstract class AbstractController implements \Webaholicson\Minimvc\Core\Controll
             $this->_view = $view;
     }
     
+    abstract public function execute();
+
     /**
      *  Code to run before the action gets dispatched
      *  @return void

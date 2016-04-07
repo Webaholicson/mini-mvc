@@ -8,18 +8,5 @@ namespace Webaholicson\Minimvc\Core\View;
  */
 class Template extends AbstractView
 {
-    protected $_parts;
-    
-    /**
-     * Get template part
-     * 
-     * @param string $name
-     * @return string
-     */
-    public function getPartial($name)
-    {
-        if (!isset($this->parts['name'])) {
-            return '';
-        }
-    }
+    protected $_template = 'index';
 }

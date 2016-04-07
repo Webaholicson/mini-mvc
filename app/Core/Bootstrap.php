@@ -30,8 +30,7 @@ final class Bootstrap
      */
     private function initServices()
     {
-        include 'config/services.php';
-        $this->services = new \Webaholicson\Minimvc\Core\Services($services);
+        $this->services = new \Webaholicson\Minimvc\Core\Services();
     }
     
     /**
@@ -44,7 +43,7 @@ final class Bootstrap
         $this->context = $this->services
             ->getObject('Webaholicson\Minimvc\Core\Context\ContextInterface', [
                 'services' => $this->services,
-            ]);
+            ], true);
     }
     
     /**
@@ -78,7 +77,7 @@ final class Bootstrap
         $this->initContext();
         $this->app = $this->services->getObject('Webaholicson\Minimvc\Core\App', [
             'context' => $this->context
-        ]);
+        ], true);
         return $this->app;
     }
 }

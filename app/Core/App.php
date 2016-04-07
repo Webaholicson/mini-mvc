@@ -41,13 +41,6 @@ class App
         $this->router   = $context->getRouter();
         $this->request  = $context->getRequest();
         $this->response = $context->getResponse();
-
-        include 'config/config.php';
-        include 'config/routes.php';
-
-        $this->config->init($config);
-        $this->request->init($config['request']);
-        $this->router->init($context, $routes);
     }
     
     /**
