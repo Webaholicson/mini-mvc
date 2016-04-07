@@ -1,0 +1,7 @@
+h1 { text-align: center; }
+#wrapper { width:800px; margin: 0 auto; }
+.input-group { margin-bottom: 10px;}
+a.btn { margin-right: 5px; float: left; }
+button.delete { margin-bottom: 10px; }
+#content { width: 360px; margin: 0 auto; }
+footer div { margin-top: 30px; }
