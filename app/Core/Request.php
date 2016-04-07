@@ -102,11 +102,11 @@ class Request
             $this->_path = $this->options['path'];
         }
 
-        $this->_path = str_replace(
-            $this->options['baseUri'],
-            '',
+        $this->_path = '/' . ltrim(str_replace(
+            array($this->options['baseUri'], 'index.php'),
+            array('', ''),
             $this->_path
-        );
+        ), '/');
 
         if (!$this->_path) $this->_path = '/';
     }
