@@ -20,13 +20,13 @@ class Search extends \Webaholicson\Minimvc\Core\Controller\Index
         $post = $this->getRequest()->getPost('isbn');
 
         if (!$post) {
-            throw new Exception('Invalid request.');
+            throw new \Exception('Invalid request.');
         }
 
         $isbn_list = array_filter($post);
 
         if (!$isbn_list) {
-            throw new Exception('No ISBN submitted.');
+            throw new \Exception('No ISBN submitted.');
         }
 
         foreach ($isbn_list as $key => $val) {
@@ -36,13 +36,13 @@ class Search extends \Webaholicson\Minimvc\Core\Controller\Index
         $res = $this->model->find($isbn_list);
 
         if (!$res) {
-            throw new Exception('No books found.');
+            throw new \Exception('No books found.');
         }
 
         $result['success'] = true;
         $result['data'] = $res;
         $result['message'] = 'Here are your results';
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
         $result['error'] = true;
         $result['message'] = $e->getMessage();
     }

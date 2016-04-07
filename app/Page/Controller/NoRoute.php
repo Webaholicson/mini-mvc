@@ -15,6 +15,6 @@ class NoRoute extends \Webaholicson\Minimvc\Core\Controller\Index
         $this->getResponse()
             ->setStatusCode(404)
             ->setReasonPhrase('Not Found')
-            ->setBody($this->_view->renderView('404', $template_vars));
+            ->setBody($this->_view->setTemplate('404')->renderView($template_vars));
       }
 }
