@@ -1,20 +1,23 @@
 {
-  "name": "webaholic/mini-mvc",
-  "description": "Small MVC framework written in PHP",
-  "type": "project",
-  "require": {
-    "mongodb/mongodb": "^1.0.1"
-  },
-  "require-dev": {
-      "phpunit/phpunit": "^5.2",
-      "behat/behat": "^3.0.15"
-  },
-  "license": "MIT",
-  "authors": [
-      {
-          "name": "Antonio Mendes",
-          "email": "avmdausa@gmail.com"
-      }
-  ],
-  "minimum-stability": "dev"
+    "name": "webaholic/mini-mvc",
+    "description": "Small MVC framework written in PHP",
+    "type": "project",
+    "require": {
+        "mongodb/mongodb": "^1.0.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.2",
+        "behat/behat": "^3.0.15",
+        "phpunit/phpunit-selenium": "1.4.2",
+        "phpmd/phpmd" : "@stable",
+        "phpdocumentor/phpdocumentor": "2.*"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Antonio Mendes",
+            "email": "avmdausa@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
 }
