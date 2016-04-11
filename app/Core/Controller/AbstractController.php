@@ -34,7 +34,7 @@ abstract class AbstractController implements \Webaholicson\Minimvc\Core\Controll
     protected $_layout = 'layout';
     
     public function __construct(
-        \Webaholicson\Minimvc\Core\Context\ContextInterface $context,
+        \Webaholicson\Minimvc\Core\ContextInterface $context,
         \Webaholicson\Minimvc\Core\View\ViewInterface $view
     ) {
             $this->_config = $context->getConfig();

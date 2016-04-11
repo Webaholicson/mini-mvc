@@ -7,5 +7,5 @@ $services['Webaholicson\Minimvc\Core\Router'] = '\Webaholicson\Minimvc\Core\Rout
 $services['Webaholicson\Minimvc\Core\Request'] = '\Webaholicson\Minimvc\Core\Request';
 $services['Webaholicson\Minimvc\Core\Response'] = '\Webaholicson\Minimvc\Core\Response';
 $services['Webaholicson\Minimvc\Core\View\ViewInterface'] = '\Webaholicson\Minimvc\Core\View\Template';
-$services['Webaholicson\Minimvc\Core\Context\ContextInterface'] = '\Webaholicson\Minimvc\Core\App\Context';
+$services['Webaholicson\Minimvc\Core\ContextInterface'] = '\Webaholicson\Minimvc\Core\Context';
 $services['Webaholicson\Minimvc\Core\Controller\ControllerInterface'] = '\Webaholicson\Minimvc\Core\Controller\Index';

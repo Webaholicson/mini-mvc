@@ -14,7 +14,7 @@ final class Bootstrap
     private $app;
     
     /**
-     * @var \Webaholicson\Minimvc\Core\Context\ContextInterface  Main context object
+     * @var \Webaholicson\Minimvc\Core\ContextInterface  Main context object
      */
     private $context;
     
@@ -41,7 +41,7 @@ final class Bootstrap
     private function initContext()
     {
         $this->context = $this->services
-            ->getObject('Webaholicson\Minimvc\Core\Context\ContextInterface', [
+            ->getObject('Webaholicson\Minimvc\Core\ContextInterface', [
                 'services' => $this->services,
             ], true);
     }

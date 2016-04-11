@@ -24,7 +24,7 @@ abstract class AbstractView implements \Webaholicson\Minimvc\Core\View\ViewInter
     protected $_template;
     
     public function __construct(
-        \Webaholicson\Minimvc\Core\Context\ContextInterface $context, 
+        \Webaholicson\Minimvc\Core\ContextInterface $context, 
         $view_path = ''
       ) {
             $this->_config = $context->getConfig();

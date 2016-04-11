@@ -4,9 +4,9 @@ namespace Webaholicson\Minimvc\Core;
 /**
  *  Abstract context class used for dependency inversion.
  * 
- *  @author Antonio Mendes <avmdausa@gmail.com>
+ *  @author Antonio Mendes <webaholicson@gmail.com>
  */
-abstract class Context implements \Webaholicson\Minimvc\Core\Context\ContextInterface
+class Context implements ContextInterface
 {
     /**
      *  @var \Webaholicson\Minimvc\Core\Services Services object

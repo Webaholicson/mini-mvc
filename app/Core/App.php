@@ -34,7 +34,7 @@ class App
      */
     private $running = false;
 
-    public function __construct(\Webaholicson\Minimvc\Core\Context\ContextInterface $context)
+    public function __construct(\Webaholicson\Minimvc\Core\ContextInterface $context)
     {
         $this->config   = $context->getConfig();
         $this->services = $context->getServices();
@@ -84,10 +84,10 @@ class App
             if ($this->running) {
                 throw new \Exception('App is already running.');
             }
-            $route = $this->router->match($this->request);
+            $this->router->match($this->request);
             $this->response->send();
         } catch (Exception $e) {
-            echo '<pre>'.$e->getMessage().'<br>'.$e->getTraceAsString().'</pre>';
+            echo '<pre>'.$e->getMessage().'<br/>'.$e->getTraceAsString().'</pre>';
         }
     }
 }
