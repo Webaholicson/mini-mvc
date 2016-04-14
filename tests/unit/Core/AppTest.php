@@ -60,7 +60,7 @@ class AppTest extends \PHPUnit_Framework_TestCase
             ->getMock();
         
         $this->router = $this->getMockBuilder('\Webaholicson\Minimvc\Core\Router')
-            ->setMethods(['route'])
+            ->setMethods(['match'])
             ->disableOriginalConstructor()
             ->getMock();
         
@@ -137,10 +137,54 @@ class AppTest extends \PHPUnit_Framework_TestCase
      * Test running the app
      * 
      * @group unit
-     * @covers \Webaholicson\Minimvc\Core\App::getResponse
+     * @covers \Webaholicson\Minimvc\Core\App::run
+     * @covers \Webaholicson\Minimvc\Core\App::isRunning
      */
     public function testRun()
     {
+        $this->context->expects($this->once())
+            ->method('getRequest')
+            ->willReturn($this->request);
+        
+        $this->context->expects($this->once())
+            ->method('getResponse')
+            ->willReturn($this->response);
+        
+        $this->context->expects($this->once())
+            ->method('getRouter')
+            ->willReturn($this->router);
+        
+        $this->router->expects($this->once())
+            ->method('match')
+            ->with($this->identicalTo($this->request));
+        
+        $this->response->expects($this->once())
+            ->method('send');
+        
         $this->app = new \Webaholicson\Minimvc\Core\App($this->context);
+        $this->app->run();
+    }
+    
+    /**
+     * Test to see if app is already running
+     * 
+     * @group unit
+     * @covers \Webaholicson\Minimvc\Core\App::run
+     */
+    public function testIsRunning()
+    {
+        $this->app = $this->getMockBuilder('\Webaholicson\Minimvc\Core\App')
+            ->setMethods(['isRunning'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        
+        $this->app->expects($this->once())
+            ->method('isRunning')
+            ->willReturn(true);
+
+        ob_start();
+        $this->app->run();
+        $contents = ob_get_clean();
+        $this->assertContains('App is already running.', $contents);
     }
 }

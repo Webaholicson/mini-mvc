@@ -33,7 +33,12 @@ class App
      * @var bool Indicates wether the app is running or not
      */
     private $running = false;
-
+    
+    /**
+     * Initialize all private variables from context
+     * 
+     * @param \Webaholicson\Minimvc\Core\ContextInterface $context
+     */
     public function __construct(\Webaholicson\Minimvc\Core\ContextInterface $context)
     {
         $this->config   = $context->getConfig();
