@@ -2,7 +2,7 @@
 namespace Webaholicson\Minimvc\Core\Controller;
 
 /**
- * Abstract controller which all controllers are extended by
+ * Abstract controller which all controllers extend from
  * 
  * @author Antonio Mendes <webaholicson@gmail.com>
  */
@@ -43,6 +43,10 @@ abstract class AbstractController implements \Webaholicson\Minimvc\Core\Controll
             $this->_view = $view;
     }
     
+    /**
+     *  Execute the request and prepare response
+     *  @return void
+     */
     abstract public function execute();
 
     /**
