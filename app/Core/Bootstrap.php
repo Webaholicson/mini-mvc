@@ -23,6 +23,11 @@ final class Bootstrap
      */
     private $services;
     
+    /**
+     * Initialize services
+     * 
+     * @param \Webaholicson\Minimvc\Core\Services $services
+     */
     public function __construct(\Webaholicson\Minimvc\Core\Services $services) 
     {
         $this->services = $services;
