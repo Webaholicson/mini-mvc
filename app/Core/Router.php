@@ -33,7 +33,6 @@ class Router
      * Match the request to a controller
      * 
      * @param \Webaholicson\Minimvc\Core\Request $request
-     * @return type
      * @throws \Exception
      */
     public function match(\Webaholicson\Minimvc\Core\Request $request)
@@ -52,7 +51,7 @@ class Router
             }
         }
 
-      return $this->dispatch($this->_routes['no_route']);
+      $this->dispatch($this->_routes['no_route']);
     }
     
     /**
