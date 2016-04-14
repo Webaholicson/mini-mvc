@@ -23,14 +23,9 @@ final class Bootstrap
      */
     private $services;
     
-    /**
-     *  Initialize the service object.
-     * 
-     *  @return  void
-     */
-    private function initServices()
+    public function __construct(\Webaholicson\Minimvc\Core\Services $services) 
     {
-        $this->services = new \Webaholicson\Minimvc\Core\Services();
+        $this->services = $services;
     }
     
     /**
@@ -52,7 +47,7 @@ final class Bootstrap
      * @param string $className
      * @return void 
      */
-    private function autoload($className)
+    public function autoload($className)
     {
         $filePath = str_replace('Webaholicson'.DS.'Minimvc'.DS, '', strtr(
             ltrim($className, '\\'),
@@ -71,9 +66,8 @@ final class Bootstrap
      *  @return \Webaholicson\Minimvc\Core\App
      */
     public function init()
-    {
+    {  
         spl_autoload_register(array($this, 'autoload'));
-        $this->initServices();
         $this->initContext();
         $this->app = $this->services->getObject('Webaholicson\Minimvc\Core\App', [
             'context' => $this->context
