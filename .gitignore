@@ -1,3 +1,6 @@
 /nbproject
 /vendor
+/tests/coverage
+/tests/mess
+/tests/docs
 composer.lock
