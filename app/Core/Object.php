@@ -53,7 +53,12 @@ class Object
 
         return $this;
     }
-
+    
+    /**
+     * Reset the data in the object
+     * 
+     * @return \Webaholicson\Minimvc\Core\Object
+     */
     public function reset()
     {
         $this->_data = array();
