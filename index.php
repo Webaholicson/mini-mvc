@@ -18,7 +18,9 @@ $appPath = implode(PS, $paths);
 set_include_path($appPath . PS . get_include_path());
 
 // Initialize and run the app
+include 'Core/Services.php';
 include 'Core/Bootstrap.php';
-$bootstrap = new \Webaholicson\Minimvc\Core\Bootstrap();
+$manager = new \Webaholicson\Minimvc\Core\Services();
+$bootstrap = new \Webaholicson\Minimvc\Core\Bootstrap($manager);
 $app = $bootstrap->init();
 $app->run();
