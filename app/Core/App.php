@@ -76,17 +76,17 @@ class App
     /**
      * Run the application
      * 
-     * @throws Exception
+     * @throws \Exception
      */
     public function run()
     {
         try {
-            if ($this->running) {
+            if ($this->isRunning()) {
                 throw new \Exception('App is already running.');
             }
             $this->router->match($this->request);
             $this->response->send();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             echo '<pre>'.$e->getMessage().'<br/>'.$e->getTraceAsString().'</pre>';
         }
     }
