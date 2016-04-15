@@ -3,12 +3,12 @@ namespace Webaholicson\Minimvc\Core;
 
 /**
  * Generic object class
+ * 
  * @author Antonio Mendes <webaholicson@gmail.com>
  */
 class Object
 {  
     /**
-     *
      * @var array   Holds all the accessible data inside the object
      */
     protected $_data;
@@ -47,7 +47,7 @@ class Object
             foreach($key as $k => $v) {
                 $this->_data[$k] = $v;
             }
-        } elseif (!empty($key) && !is_null($value) && !empty($value)) {
+        } elseif (!empty($key) && !is_null($value)) {
             $this->_data[$key] = $value;
         }
 

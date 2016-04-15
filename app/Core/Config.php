@@ -38,7 +38,7 @@ class Config extends \Webaholicson\Minimvc\Core\Object
             foreach($key as $k => $v) {
                 $this->_data[$k] = $this->_transformValue($v, $transformValue);
             }
-        } elseif (!empty($key) && !is_null($value) && !empty($value)) {
+        } elseif (!empty($key) && !is_null($value)) {
             $this->_data[$key] = $this->_transformValue($value, $transformValue);
         }
 
