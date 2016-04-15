@@ -57,15 +57,36 @@ class App
     {
         return $this->request;
     }
-
+    
     /**
      * Get the app response object
      * 
-     * @return Webaholicson\Minimvc\Core\Response
+     * @return \Webaholicson\Minimvc\Core\Response
      */
     public function getResponse()
     {
         return $this->response;
+        
+    }
+    
+    /**
+     * Get the app config object
+     * 
+     * @return \Webaholicson\Minimvc\Core\Config
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+    
+    /**
+     * Get the object creation services
+     * 
+     * @return \Webaholicson\Minimv\Core\Services
+     */
+    public function getServices()
+    {
+        return $this->services;
     }
     
     /**

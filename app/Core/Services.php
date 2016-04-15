@@ -18,12 +18,20 @@ class Services
      */
     public function __construct($services = [])
     {
-        if (!$services) {
-            include 'config/services.php';
-        }
-        
         $this->services = $services;
         $this->services[__CLASS__ . '\Cached'] = $this;
+    }
+    
+    /**
+     * Initialize the services
+     * 
+     * @param array $services
+     * @return \Webaholicson\Minimvc\Core\Services
+     */
+    public function init($services = [])
+    {
+        $this->services = $services;
+        return $this;
     }
     
     /**
@@ -37,7 +45,7 @@ class Services
     public function getObject($className, $args = [], $cache = false)
     {
         if (!isset($this->services[$className]) && !class_exists($className)) {
-            throw new Exception(sprintf('Class "%s" not found.', $className));
+            throw new \Exception(sprintf('Class "%s" not found.', $className));
         }
         
         $className            = isset($this->services[$className]) ? $this->services[$className] : $className;

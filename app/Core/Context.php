@@ -14,11 +14,6 @@ class Context implements ContextInterface
     protected $_services;
     
     /**
-     *  @var \Webaholicson\Minimvc\Core\App Application object
-     */
-    protected $_app;
-    
-    /**
      *  @var \Webaholicson\Minimvc\Core\Request Main app request object
      */
     protected $_request;
@@ -33,6 +28,16 @@ class Context implements ContextInterface
      */
     protected $_config;
     
+    /**
+     * Initialize the context
+     * 
+     * @codeCoverageIgnore
+     * @param \Webaholicson\Minimvc\Core\Services $services
+     * @param \Webaholicson\Minimvc\Core\Request $request
+     * @param \Webaholicson\Minimvc\Core\Response $response
+     * @param \Webaholicson\Minimvc\Core\Config $config
+     * @param \Webaholicson\Minimvc\Core\Router $router
+     */
     public function __construct(
         \Webaholicson\Minimvc\Core\Services $services,
         \Webaholicson\Minimvc\Core\Request $request,

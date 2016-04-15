@@ -6,6 +6,7 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          beStrictAboutTestsThatDoNotTestAnything="true"
+         checkForUnintentionallyCoveredCode="true"
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="true"

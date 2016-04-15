@@ -67,6 +67,10 @@ class AppTest extends \PHPUnit_Framework_TestCase
         $this->services = $this->getMockBuilder('\Webaholicson\Minimvc\Core\Services')
             ->disableOriginalConstructor()
             ->getMock();
+        
+        $this->config = $this->getMockBuilder('\Webaholicson\Minimvc\Core\Config')
+            ->disableOriginalConstructor()
+            ->getMock();
     }
     
     /**
@@ -105,6 +109,7 @@ class AppTest extends \PHPUnit_Framework_TestCase
      * 
      * @group unit
      * @covers \Webaholicson\Minimvc\Core\App::getRequest
+     * @uses \Webaholicson\Minimvc\Core\App::__construct
      */
     public function testGetRequest()
     {
@@ -122,6 +127,7 @@ class AppTest extends \PHPUnit_Framework_TestCase
      * 
      * @group unit
      * @covers \Webaholicson\Minimvc\Core\App::getResponse
+     * @uses \Webaholicson\Minimvc\Core\App::__construct
      */
     public function testGetResponse()
     {
@@ -134,11 +140,46 @@ class AppTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
+     * Test getting the app config object
+     * 
+     * @group unit
+     * @covers \Webaholicson\Minimvc\Core\App::getConfig
+     * @uses \Webaholicson\Minimvc\Core\App::__construct
+     */
+    public function testGetConfig()
+    {
+        $this->context->expects($this->once())
+            ->method('getConfig')
+            ->willReturn($this->config);
+        
+        $this->app = new \Webaholicson\Minimvc\Core\App($this->context);
+        $this->assertEquals($this->config, $this->app->getConfig());
+    }
+    
+    /**
+     * Test getting the app services provider object
+     * 
+     * @group unit
+     * @covers \Webaholicson\Minimvc\Core\App::getServices
+     * @uses \Webaholicson\Minimvc\Core\App::__construct
+     */
+    public function testGetServices()
+    {
+        $this->context->expects($this->once())
+            ->method('getServices')
+            ->willReturn($this->services);
+        
+        $this->app = new \Webaholicson\Minimvc\Core\App($this->context);
+        $this->assertEquals($this->services, $this->app->getServices());
+    }
+    
+    /**
      * Test running the app
      * 
      * @group unit
      * @covers \Webaholicson\Minimvc\Core\App::run
      * @covers \Webaholicson\Minimvc\Core\App::isRunning
+     * @uses \Webaholicson\Minimvc\Core\App::__construct
      */
     public function testRun()
     {

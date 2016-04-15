@@ -19,6 +19,16 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
     private $app;
     
     /**
+     * @var \Webaholicson\Minimvc\Core\Config
+     */
+    private $config;
+    
+    /**
+     * @var \Webaholicson\Minimvc\Core\Request
+     */
+    private $request;
+    
+    /**
      * @var \Webaholicson\Minimvc\Core\ContextInterface
      */
     private $context;
@@ -41,6 +51,17 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
             ->getMock();
         
         $this->app = $this->getMockBuilder('\Webaholicson\Minimvc\Core\App')
+            ->setMethods(['getConfig', 'getRequest'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        
+        $this->config = $this->getMockBuilder('\Webaholicson\Minimvc\Core\Config')
+            ->setMethods(['init'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        
+        $this->request = $this->getMockBuilder('\Webaholicson\Minimvc\Core\Request')
+            ->setMethods(['init'])
             ->disableOriginalConstructor()
             ->getMock();
         
@@ -68,6 +89,22 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
      */
     public function testInit()
     {
+        $this->app->expects($this->once())
+            ->method('getRequest')
+            ->willReturn($this->request);
+        
+        $this->app->expects($this->once())
+            ->method('getConfig')
+            ->willReturn($this->config);
+        
+        $this->config->expects($this->once())
+            ->method('init')
+            ->with($this->equalTo(['test' => true]));
+        
+        $this->request->expects($this->once())
+            ->method('init')
+            ->with($this->equalTo(['test' => true]));
+        
         $this->services->expects($this->exactly(2))
             ->method('getObject')
             ->withConsecutive(
@@ -87,6 +124,12 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
             ));
         
         $this->bootstrap->autoload('\Webaholicson\Minimvc\Core\App');
-        $this->assertInstanceOf(\Webaholicson\Minimvc\Core\App::class, $this->bootstrap->init());
+        $this->assertInstanceOf(
+            \Webaholicson\Minimvc\Core\App::class, 
+            $this->bootstrap->init([
+                'config' => ['test' => true],
+                'request' => ['test' => true]
+            ])
+        );
     }
 }

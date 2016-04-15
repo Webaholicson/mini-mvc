@@ -57,11 +57,6 @@ class Request
             
             $this->init($options);
         }
-        
-         if (!$this->options) {
-                include 'config/config.php';
-                $this->init($config['request']->get());
-            }
     }
     
     /**

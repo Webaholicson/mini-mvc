@@ -68,15 +68,25 @@ final class Bootstrap
     /**
      *  Create app instannce and return it
      * 
+     *  @param array $options
      *  @return \Webaholicson\Minimvc\Core\App
      */
-    public function init()
+    public function init($options = [])
     {  
         spl_autoload_register(array($this, 'autoload'));
         $this->initContext();
         $this->app = $this->services->getObject('Webaholicson\Minimvc\Core\App', [
             'context' => $this->context
         ], true);
+        
+        if (isset($options['config'])) {
+            $this->app->getConfig()->init($options['config']);
+        }
+        
+        if (isset($options['request'])) {
+            $this->app->getRequest()->init($options['request']);
+        }
+        
         return $this->app;
     }
 }

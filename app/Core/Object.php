@@ -13,7 +13,7 @@ class Object
      */
     protected $_data;
 
-    public function __construct($data = array())
+    public function __construct($data = [])
     {
         $this->_data = $data;
     }
