@@ -174,6 +174,23 @@ class AppTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
+     * Test getting the app router object
+     * 
+     * @group unit
+     * @covers \Webaholicson\Minimvc\Core\App::getRouter
+     * @uses \Webaholicson\Minimvc\Core\App::__construct
+     */
+    public function testGetRouter()
+    {
+        $this->context->expects($this->once())
+            ->method('getRouter')
+            ->willReturn($this->router);
+        
+        $this->app = new \Webaholicson\Minimvc\Core\App($this->context);
+        $this->assertEquals($this->router, $this->app->getRouter());
+    }
+    
+    /**
      * Test running the app
      * 
      * @group unit

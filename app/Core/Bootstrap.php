@@ -87,6 +87,10 @@ final class Bootstrap
             $this->app->getRequest()->init($options['request']);
         }
         
+        if (isset($options['routes'])) {
+            $this->app->getRouter()->init($options['routes']);
+        }
+        
         return $this->app;
     }
 }

@@ -90,6 +90,16 @@ class App
     }
     
     /**
+     * Get the router object
+     * 
+     * @return \Webaholicson\Minimv\Core\Router
+     */
+    public function getRouter()
+    {
+        return $this->router;
+    }
+    
+    /**
      * Check if the app is running
      * 
      * @return bool

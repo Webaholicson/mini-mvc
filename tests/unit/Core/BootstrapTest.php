@@ -23,6 +23,11 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
      */
     private $config;
     
+     /**
+     * @var \Webaholicson\Minimvc\Core\Router
+     */
+    private $router;
+    
     /**
      * @var \Webaholicson\Minimvc\Core\Request
      */
@@ -51,11 +56,16 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
             ->getMock();
         
         $this->app = $this->getMockBuilder('\Webaholicson\Minimvc\Core\App')
-            ->setMethods(['getConfig', 'getRequest'])
+            ->setMethods(['getConfig', 'getRequest', 'getRouter'])
             ->disableOriginalConstructor()
             ->getMock();
         
         $this->config = $this->getMockBuilder('\Webaholicson\Minimvc\Core\Config')
+            ->setMethods(['init'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        
+        $this->router = $this->getMockBuilder('\Webaholicson\Minimvc\Core\Router')
             ->setMethods(['init'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -97,6 +107,10 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
             ->method('getConfig')
             ->willReturn($this->config);
         
+        $this->app->expects($this->once())
+            ->method('getRouter')
+            ->willReturn($this->router);
+        
         $this->config->expects($this->once())
             ->method('init')
             ->with($this->equalTo(['test' => true]));
@@ -127,6 +141,7 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(
             \Webaholicson\Minimvc\Core\App::class, 
             $this->bootstrap->init([
+                'routes' => ['test' => true],
                 'config' => ['test' => true],
                 'request' => ['test' => true]
             ])

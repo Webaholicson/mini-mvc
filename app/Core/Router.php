@@ -18,14 +18,19 @@ class Router
      */
     protected $_routes;
     
-    public function __construct(\Webaholicson\Minimvc\Core\Services $services, $routes = array()) 
+    public function __construct(\Webaholicson\Minimvc\Core\Services $services, $routes = []) 
     {
         $this->_services = $services;
-        
-        if (!$routes) {
-            include 'config/routes.php';
-        }
-        
+        $this->init($routes);
+    }
+    
+    /**
+     * Initialize the routes
+     * 
+     * @param array $routes
+     */
+    public function init($routes = [])
+    {
         $this->_routes = $routes;
     }
     
