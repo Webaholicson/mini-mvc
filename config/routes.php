@@ -1,14 +1,14 @@
 <?php
-$routes = array();
+$routes = [];
 
-$routes['/'] = array(
+$routes['/'] = [
   'controller' => '\Webaholicson\Minimvc\Page\Controller\Index'
-);
+];
 
-$routes['/search'] = array(
+$routes['/search'] = [
   'controller' => '\Webaholicson\Minimvc\Page\Controller\Search'
-);
+];
 
-$routes['no_route'] = array(
+$routes['no_route'] = [
   'controller' => '\Webaholicson\Minimvc\Page\Controller\NoRoute'
-);
+];

@@ -18,7 +18,7 @@ class Router
      */
     protected $_routes;
     
-    public function __construct(\Webaholicson\Minimvc\Core\Services $services, $routes = []) 
+    public function __construct(\Webaholicson\Minimvc\Core\Services $services, $routes = [])
     {
         $this->_services = $services;
         $this->init($routes);
@@ -62,11 +62,15 @@ class Router
     /**
      * Dispatch the controller
      * 
-     * @param type $route
+     * @param mixed $route
      */
-    private function dispatch($route)
+    public function dispatch($route)
     {
-        $controller = $this->_services->getObject($route['controller']);
-        $controller->dispatch($route);
+        try {
+            $controller = $this->_services->getObject($route['controller']);
+            $controller->dispatch($route);
+        } catch (\Exception $e) {
+            $this->dispatch($this->_routes['no_route']);
+        }
     }
 }
