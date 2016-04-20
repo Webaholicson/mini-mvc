@@ -139,7 +139,7 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
         
         $this->bootstrap->autoload('\Webaholicson\Minimvc\Core\App');
         $this->assertInstanceOf(
-            \Webaholicson\Minimvc\Core\App::class, 
+            '\Webaholicson\Minimvc\Core\App', 
             $this->bootstrap->init([
                 'routes' => ['test' => true],
                 'config' => ['test' => true],

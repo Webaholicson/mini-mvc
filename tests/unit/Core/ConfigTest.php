@@ -17,8 +17,8 @@ class ConfigtTest extends \PHPUnit_Framework_TestCase
      * @covers \Webaholicson\Minimvc\Core\Config::set
      * @covers \Webaholicson\Minimvc\Core\Config::_transformValue
      * @covers \Webaholicson\Minimvc\Core\Config::__construct
-     * @uses \Webaholicson\Minimvc\Core\Object::get Get value from config
-     * @uses \Webaholicson\Minimvc\Core\Object::__construct Calls parent constructor
+     * @uses \Webaholicson\Minimvc\Core\Object::get
+     * @uses \Webaholicson\Minimvc\Core\Object::__construct
      */
     public function testSettingKeyValue()
     {
