@@ -18,7 +18,9 @@ $paths['app'] = BP.DS.'..'.DS.'app';
 $appPath = implode(PS, $paths);
 set_include_path($appPath . PS . get_include_path());
 
-include '../vendor/autoload.php';
+if (file_exists('../vendor/autoload.php')) {
+    include '../vendor/autoload.php';
+}
 
 spl_autoload_register(function($className){
     $filePath = str_replace('Webaholicson'.DS.'Minimvc'.DS, '', strtr(
