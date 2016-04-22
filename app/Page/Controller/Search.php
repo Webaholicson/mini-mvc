@@ -1,7 +1,12 @@
 <?php
 namespace Webaholicson\Minimvc\Page\Controller;
 
-class Search extends \Webaholicson\Minimvc\Core\Controller\Index
+/**
+ * View for the search results class
+ * 
+ * @author Antonio Mendes <webaholicson@gmail.com>
+ */
+class Search extends Index
 {
     /**
      * @inheritdoc

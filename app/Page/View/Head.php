@@ -1,8 +1,13 @@
 <?php
+namespace Webaholicson\Minimvc\Page\View;
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * View class for the head
  */
-
+class Head extends \Webaholicson\Minimvc\Core\View\AbstractView
+{
+    /**
+     * @var string
+     */
+    protected $_template = 'head';
+}

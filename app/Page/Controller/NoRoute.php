@@ -1,20 +1,23 @@
 <?php
 namespace Webaholicson\Minimvc\Page\Controller;
 
-class NoRoute extends \Webaholicson\Minimvc\Core\Controller\Index
+/**
+ * View for the 404 page
+ * 
+ * @author Antonio Mendes <webaholicson@gmail.com>
+ */
+class NoRoute extends Index
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function execute()
     {
-        $template_vars = array(
-            'home_url' => $this->_config->get('base_url')
-        );
-
+        parent::_prepareView();
+        
         $this->getResponse()
             ->setStatusCode(404)
             ->setReasonPhrase('Not Found')
-            ->setBody($this->_view->setTemplate('404')->renderView($template_vars));
+            ->setBody($this->_view->setTemplate('404')->renderView());
       }
 }

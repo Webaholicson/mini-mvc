@@ -8,5 +8,5 @@ namespace Webaholicson\Minimvc\Page\View;
  */
 class Index extends \Webaholicson\Minimvc\Core\View\AbstractView
 {
-    
+    protected $_view = 'layout';
 }

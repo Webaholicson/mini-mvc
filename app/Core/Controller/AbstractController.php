@@ -27,11 +27,16 @@ abstract class AbstractController implements \Webaholicson\Minimvc\Core\Controll
      * @var \Webaholicson\Minimvc\Core\Response
      */
     protected $_response;
+    
+    /**
+     * @var \Webaholicson\Minimvc\Core\Services
+     */
+    protected $_services;
 
     /**
-     * @var string Layout file to use for this controller
+     * @var \Webaholicson\Minimvc\Core\View\ViewInterface Layout view to use for this controller
      */
-    protected $_layout = 'layout';
+    protected $_layout;
     
     public function __construct(
         \Webaholicson\Minimvc\Core\ContextInterface $context,
@@ -40,6 +45,7 @@ abstract class AbstractController implements \Webaholicson\Minimvc\Core\Controll
             $this->_config = $context->getConfig();
             $this->_request = $context->getRequest();
             $this->_response = $context->getResponse();
+            $this->_services = $context->getServices();
             $this->_view = $view;
     }
     
@@ -69,6 +75,33 @@ abstract class AbstractController implements \Webaholicson\Minimvc\Core\Controll
         // Not yet implemented
     }
     
+    /**
+     * Add a template part to the main view
+     * 
+     * @param string $name
+     * @param string $className
+     */
+    protected function _addViewPart($name, $className)
+    {
+        $this->_view->addPart(
+            $name, 
+            $this->_services->getObject($className, [
+                'context' => $this->_services->getObject('Webaholicson\Minimvc\Core\Context', [], true)
+            ])
+        );
+    }
+    
+    /**
+     * Prepare the view for rendering
+     * 
+     * @return \Webaholicson\Minimvc\Core\View\ViewInterface
+     */
+    protected function _prepareView()
+    {
+        return $this->_view;
+    }
+
+
     /**
      *  Execute the action
      *  @return void

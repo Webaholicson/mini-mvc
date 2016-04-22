@@ -2,11 +2,16 @@
 namespace Webaholicson\Minimvc\Page\View;
 
 /**
- * Main page controller. Default view for the entire system.
+ * View class for the header
  * 
  * @author Antonio Mendes <webaholicson@gmail.com>
  */
-class Header extends \Webaholicson\Minimvc\Core\View\Template
+class Header extends \Webaholicson\Minimvc\Core\View\AbstractView
 {
     protected $_template = 'header';
+    
+    public function getLogoSrc()
+    {
+        return $this->getUrl('images/logo.jpg');
+    }
 }

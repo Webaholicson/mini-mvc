@@ -4,7 +4,7 @@ DirectoryIndex index.php
     Options +FollowSymLinks
 
     RewriteEngine on
-    RewriteBase /mini-mvc
+    RewriteBase /
 
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d

@@ -23,6 +23,17 @@ abstract class AbstractView implements \Webaholicson\Minimvc\Core\View\ViewInter
      */
     protected $_template;
     
+    /**
+     * @var \Webaholicson\Minimvc\Core\Config  App config object
+     */
+    protected $_config;
+    
+    /**
+     * Initialize the view
+     * 
+     * @param \Webaholicson\Minimvc\Core\ContextInterface $context
+     * @param string $view_path
+     */
     public function __construct(
         \Webaholicson\Minimvc\Core\ContextInterface $context, 
         $view_path = ''
@@ -93,7 +104,11 @@ abstract class AbstractView implements \Webaholicson\Minimvc\Core\View\ViewInter
      */
     public function getPartial($name)
     {
-        return $this->_parts[$name]->renderView(array('parent' => $this));
+        if (isset($this->_parts[$name])) {
+            return $this->_parts[$name]->renderView(array('parent' => $this));
+        }
+        
+        return '';
     }
     
     /**
@@ -116,5 +131,16 @@ abstract class AbstractView implements \Webaholicson\Minimvc\Core\View\ViewInter
     {
         $this->_template = $template;
         return $this;
+    }
+    
+    /**
+     * Generate and fetch url
+     * 
+     * @param string $path
+     * @return string
+     */
+    public function getUrl($path = '')
+    {
+        return rtrim($this->_config->get('general')->get('base_url'), '/') . '/' .$path;
     }
 }

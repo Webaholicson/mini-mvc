@@ -2,8 +2,8 @@
 $config = array();
 
 $config['general'] = array(
-    'base_url' => 'http://localhost/mini-mvc',
-    'base_uri' => '/mini-mvc',
+    'base_url' => 'http://mini-mvc.localhost.com',
+    'base_uri' => '/',
     'template_engine' => 'phtml'
 );
 
