@@ -1,5 +1,5 @@
 <?php
-$service = array();
+$service = [];
 
 $services['Webaholicson\Minimvc\Core\App'] = '\Webaholicson\Minimvc\Core\App';
 $services['Webaholicson\Minimvc\Core\Config'] = '\Webaholicson\Minimvc\Core\Config';

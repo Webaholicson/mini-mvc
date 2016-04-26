@@ -67,7 +67,9 @@ class Router
     public function dispatch($route)
     {
         try {
-            $controller = $this->_services->getObject($route['controller']);
+            $controllerName = $route['controller'];
+            $params = array_slice($route, 1);
+            $controller = $this->_services->getObject($controllerName, $params);
             $controller->dispatch($route);
         } catch (\Exception $e) {
             $this->dispatch($this->_routes['no_route']);

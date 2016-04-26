@@ -44,6 +44,12 @@ class Request
     protected $_baseUri;
     
     /**
+     *
+     * @var string Request referrer URL
+     */
+    protected $_referrer;
+    
+    /**
      * Instantiate the class and parse the url string if there is one.
      * @param string $url
      */
@@ -170,5 +176,35 @@ class Request
     public function isGet()
     {
         return $this->_method == 'GET';
+    }
+    
+    /**
+     * Return the query string
+     * 
+     * @return string
+     */
+    public function getQuery()
+    {
+        return $this->_query;
+    }
+    
+    /**
+     * Return the host address
+     * 
+     * @return string
+     */
+    public function getHost()
+    {
+        return $this->_host;
+    }
+    
+    /**
+     * Get the referrer url
+     * 
+     * @return string
+     */
+    public function getReferrer()
+    {
+        return $this->_referrer;
     }
 }
