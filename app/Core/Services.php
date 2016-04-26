@@ -50,39 +50,85 @@ class Services
         if (!isset($this->services[$className]) && !class_exists($className))
             throw new \Exception(sprintf('Class "%s" not found.', $className));
         
-        $className = isset($this->services[$className]) ? $this->services[$className] : $className;
+        $className = $this->_getClassName($className);
         $cachedName = ltrim($className . '\Cached', '\\');
         
         if ($cache && isset($this->services[$cachedName]))
             return $this->services[$cachedName];
         
-        $reflectionClass    = new \ReflectionClass($className);
+        $reflectionClass = new \ReflectionClass($className);
+        $constructor = $reflectionClass->getConstructor();
         
-        if ($reflectionClass->getConstructor()) {
-            foreach ($reflectionClass->getConstructor()->getParameters() as $parameter) {
-                if (!array_key_exists($parameter->getName(), $args) || !is_object($args[$parameter->getName()])) {
-                    if (!$parameter->isOptional()) {
-                        $args[$parameter->getName()] = $this->getObject(
-                            isset($args[$parameter->getName()]) ? 
-                                $args[$parameter->getName()] : 
-                                ltrim($parameter->getClass()->name, '\\'), [], true
-                        );
-                    } else {
-                        $args[$parameter->getName()] = $parameter->getDefaultValue();
-                    }
+        if ($constructor && $constructor->getParameters()) {
+            foreach ($constructor->getParameters() as $parameter) {
+                if ($this->_canPrepareParam($parameter, $args)) {
+                    $this->_prepareParam($parameter, $args);
                 }
             }
         }
         
         if ($args)
-            $args = $this->_reorderArgs($reflectionClass->getConstructor(), $args);
+            $args = $this->_reorderArgs($constructor, $args);
         
         $instance = $reflectionClass->newInstanceArgs($args);
         
         if ($cache)
             $this->services[$cachedName] = $instance;
+            
         
         return $instance;
+    }
+    
+    /**
+     * If the class is not registered then it will be instantiated by the autoloader,
+     * otherwise it will be looked up in the services registry
+     * 
+     * @param string $className
+     * @return strign
+     */
+    protected function _getClassName($className)
+    {
+        if (isset($this->services[$className])) {
+            return $this->services[$className];
+        }
+        
+        return $className;
+    }
+    
+    /**
+     * Check to see if the paramater needs to be prepared before it's passed to the constructor
+     * 
+     * @param \ReflectionParameter $parameter
+     * @param array $args
+     * @return boolean
+     */
+    protected function _canPrepareParam(\ReflectionParameter $parameter, $args)
+    {
+        return !array_key_exists($parameter->getName(), $args) || 
+            !is_object($args[$parameter->getName()]);
+    }
+    
+    /**
+     * Prepare the paramater to be passed to the constructor
+     * 
+     * @param \ReflectionParameter $parameter
+     * @param array $args
+     * @return void
+     */
+    protected function _prepareParam(\ReflectionParameter $parameter, &$args)
+    {
+        if ($parameter->isOptional()) {
+            $args[$parameter->getName()] = $parameter->getDefaultValue();
+            return;
+        }
+
+        $className = ltrim($parameter->getClass()->name, '\\');
+
+        if (isset($args[$parameter->getName()])) {
+            $className = $args[$parameter->getName()];
+        }
+
+        $args[$parameter->getName()] = $this->getObject($className, [], true);
     }
     
     /**
