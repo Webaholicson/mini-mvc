@@ -33,6 +33,11 @@ class Response
      */
     protected $_body;
 
+    /**
+     * Class constructor initializes the headers array
+     * 
+     * @codeCoverageIgnore
+     */
     public function __construct()
     {
         $this->headers = array();
