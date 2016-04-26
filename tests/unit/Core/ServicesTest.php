@@ -51,7 +51,7 @@ class ServicesTest extends \PHPUnit_Framework_TestCase
      * @group unit
      * @group core
      * @covers \Webaholicson\Minimvc\Core\Services::init
-     * @uses \Webaholicson\Minimvc\Core\Services::__construct   Used when creating an instance
+     * @uses \Webaholicson\Minimvc\Core\Services::__construct
      */
     public function testInit()
     {
