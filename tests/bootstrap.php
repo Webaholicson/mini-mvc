@@ -23,13 +23,20 @@ if (file_exists('../vendor/autoload.php')) {
 }
 
 spl_autoload_register(function($className){
-    $filePath = str_replace('Webaholicson'.DS.'Minimvc'.DS, '', strtr(
-            ltrim($className, '\\'),
+    $filePath = str_replace(
             array(
-                '\\' => DS,
-                '_'  => DS
+                'Webaholicson'.DS.'Minimvc'.DS.'Tests'.DS,
+                'Webaholicson'.DS.'Minimvc'.DS
+            ), 
+            array('', ''), 
+            strtr(
+                ltrim($className, '\\'),
+                array(
+                    '\\' => DS,
+                    '_'  => DS
+                )
             )
-        ));
+        );
 
         include_once $filePath . '.php';
 });
