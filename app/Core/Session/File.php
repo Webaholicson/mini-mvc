@@ -5,6 +5,7 @@ namespace Webaholicson\Minimvc\Core\Session;
  * Session manager wrapper class
  * 
  * @author Antonio Mendes <webaholicson@gmail.com>
+ * @codeCoverageIgnore
  */
 class File implements \SessionHandlerInterface 
 {
