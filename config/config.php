@@ -4,7 +4,8 @@ $config = [];
 $config['general'] = [
     'base_url' => 'http://mini-mvc.localhost.com',
     'base_uri' => '/',
-    'template_engine' => 'phtml'
+    'template_engine' => 'phtml',
+    'secret' => '123456789'
 ];
 
 $config['request'] = [

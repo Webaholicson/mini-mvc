@@ -4,50 +4,74 @@ namespace Webaholicson\Minimvc\Core;
 class Request
 {
     /**
-     * @var array Options from the config
+     * Options from the config
+     * 
+     * @var array
      */
     private $options;
     
     /**
-     * @var array Request headers
+     * Request headers
+     * 
+     * @var array
      */
     protected $_headers = array();
 
     /**
-     * @var string Request uri
+     * Request uri
+     * 
+     * @var string
      */
     protected $_path;
     
     /**
-     * @var string Request method
+     * Request method
+     * 
+     * @var string
      */
     protected $_method;
     
     /**
-     * @var string Request url query string
+     * Request url query string
+     * 
+     * @var string
      */
     protected $_query;
 
     /**
-     * @var string Request scheme
+     * Request scheme
+     * 
+     * @var string
      */
     protected $_scheme;
     
     /**
-     * @var string Server host name 
+     * Server host name 
+     * 
+     * @var string
      */
     protected $_host;
     
     /**
-     * @var string Applications base uri
+     * Applications base uri
+     * 
+     * @var string
      */
     protected $_baseUri;
     
     /**
-     *
-     * @var string Request referrer URL
+     * Request referrer URL
+     * 
+     * @var string
      */
     protected $_referrer;
+    
+    /**
+     * Original url
+     * 
+     * @var string
+     */
+    protected $_original;
     
     /**
      * Instantiate the class and parse the url string if there is one.
@@ -56,6 +80,7 @@ class Request
     public function __construct($url = '')
     {
         if ($url) {
+            $this->_original = $url;
             $options = parse_url($url);
             array_walk($options, function($value, &$key) {
                 $key = '_' . $key;
@@ -96,20 +121,23 @@ class Request
     {
         $parts = explode('?', $this->options['path']);
         $this->options['path'] = $parts[0];
-
+        $this->_path = $this->options['path'];
+        
         if (substr($this->options['path'], -1) == '/') {
             $this->_path = substr($this->options['path'], 0, -1);
-        } else {
-            $this->_path = $this->options['path'];
+        }
+        
+        if (isset($this->options['baseUri'])) {
+            $this->_path = '/' . ltrim(str_replace(
+                array($this->options['baseUri'], 'index.php'),
+                array('', ''),
+                $this->_path
+            ), '/');
         }
 
-        $this->_path = '/' . ltrim(str_replace(
-            array($this->options['baseUri'], 'index.php'),
-            array('', ''),
-            $this->_path
-        ), '/');
-
-        if (!$this->_path) $this->_path = '/';
+        if (!$this->_path) {
+            $this->_path = '/';
+        }
     }
     
     /**
@@ -120,6 +148,12 @@ class Request
     public function getUri()
     {
         return $this->_path;
+    }
+    
+    public function setUri($uri)
+    {
+        $this->_path = $uri;
+        return $this;
     }
     
     /**
@@ -134,7 +168,20 @@ class Request
             return $_POST;
         }
         
-        return isset($_POST[$key])  ? $_POST[$key] : '';
+        return isset($_POST[$key])  ? $_POST[$key] : null;
+    }
+    
+    /**
+     * Set a value to the POST supergloal
+     * 
+     * @param string $key
+     * @param mixed $value
+     * @return \Webaholicson\Minimvc\Core\Request
+     */
+    public function setPost($key, $value)
+    {
+        $_POST[$key] = $value;
+        return $this;
     }
     
     /**
@@ -150,12 +197,51 @@ class Request
     /**
      * Retrieve a GET variable
      * 
-     * @param string $key
+     * @param string|null $key
      * @return mixed
      */
-    public function getParam($key)
+    public function getParam($key = null)
     {
-        return isset($_GET[$key]) ? $_GET[$key] : '';
+        if (is_null($key)) {
+            return $_GET;
+        }
+        
+        return isset($_GET[$key])  ? $_GET[$key] : null;
+    }
+    
+    /**
+     * Set a parameter to the GET superglobal
+     * 
+     * @param string $key
+     * @param mixed $value
+     * @return \Webaholicson\Minimvc\Core\Request
+     */
+    public function setParam($key, $value)
+    {
+        $_GET[$key] = $value;
+        return $this;
+    }
+    
+    /**
+     * Set the request method
+     * 
+     * @param string $method
+     * @return \Webaholicson\Minimvc\Core\Request
+     */
+    public function setMethod($method)
+    {
+        $this->_method = $method;
+        return $this;
+    }
+    
+    /**
+     * Get the request method. GET is the default.
+     * 
+     * @return string
+     */
+    public function getMethod()
+    {
+        return $this->_method ? $this->_method : 'GET';
     }
     
     /**
@@ -199,6 +285,40 @@ class Request
     }
     
     /**
+     * Set the host address of the request
+     * 
+     * @param string $host
+     * @return \Webaholicson\Minimvc\Core\Request
+     */
+    public function setHost($host)
+    {
+        $this->_host = $host;
+        return $this;
+    }
+    
+    /**
+     * Set the request scheme
+     * 
+     * @param string $scheme
+     * @return \Webaholicson\Minimvc\Core\Request
+     */
+    public function setScheme($scheme)
+    {
+        $this->_scheme = $scheme;
+        return $this;
+    }
+    
+    /**
+     * Get the request scheme (HTTP or HTTPS)
+     * 
+     * @return string
+     */
+    public function getScheme()
+    {
+        return $this->_scheme;
+    }
+    
+    /**
      * Get the referrer url
      * 
      * @return string
@@ -206,5 +326,57 @@ class Request
     public function getReferrer()
     {
         return $this->_referrer;
+    }
+    
+    /**
+     * Get header value
+     * 
+     * @param string $key
+     * @return string
+     */
+    public function getHeader($key)
+    {
+        return isset($this->_headers[$key]) ? $this->_headers[$key] : '';
+    }
+    
+    /**
+     * Set header value
+     * 
+     * @param string $key
+     * @param string $value
+     * @return \Webaholicson\Minimvc\Core\Request
+     */
+    public function setHeader($key, $value)
+    {
+        $this->_headers[$key]  = $value;
+        return $this;
+    }
+    
+    /**
+     * Send the request
+     * 
+     * @return mixed
+     */
+    public function send()
+    {
+        $ch = curl_init($this->_scheme . '://' . $this->_host . $this->_path . $this->_query);
+        
+        if ($this->isPost()) {
+            curl_setopt($ch, CURLOPT_POST, true);
+        }
+        
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $this->getParams());
+        
+        if ($this->_headers) {
+            $headers = array();
+            foreach ($this->_headers as $key => $val) {
+                $headers[] = $key . ': ' . $val;
+            }
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        }
+        
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
     }
 }

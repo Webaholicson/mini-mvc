@@ -67,7 +67,7 @@ class Session extends Object
     }
     
     /**
-     * Validate the session to prevent it from bing hijacked
+     * Validate the session to prevent it from being hijacked
      */
     public function validate()
     {
